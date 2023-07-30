@@ -33,12 +33,14 @@ exports.addUser = async (req, res, next) => {
     try{
 
         const existingUser = await User.findOne({
-            name: req.body.name,
+            userName: req.body.userName,
+            accountId:req.body.accountId
           });
         if (existingUser) {
-            existingUser.email = req.body.email;
-            existingUser.photoURL = req.body.photoURL;
+            existingUser.firstName = req.body.firstName;
+            existingUser.lastName = req.body.lastName;
             existingUser.password = req.body.password;
+            existingUser.photoURL = req.body.photoURL;
             existingUser.dob = req.body.DOB;
             existingUser.age = req.body.age;
             existingUser.skills = req.body.skills;

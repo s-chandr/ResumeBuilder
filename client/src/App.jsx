@@ -1,14 +1,14 @@
 import Navbar from "./components/Navbar";
 import "./app.css";
 import Home from "./pages/Home";
-import Post from "./pages/Post";
+
 import Login from "./pages/Login";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import NotFoundPage from './pages/NotFoundPage';
 const App = () => {
   const [user, setUser] = useState(null);
-
+  // const [password, setPassword] = useState('');
   useEffect(() => {
     const getUser = () => {
       fetch("http://localhost:5000/auth/login/success", {
@@ -31,7 +31,10 @@ const App = () => {
           console.log(err);
         });
     };
+    
+    
     getUser();
+    
   }, []);
 
   return (
@@ -42,7 +45,7 @@ const App = () => {
           <Route path="/" element={<Home user={user} />} />
           <Route
             path="/login"
-            element={user ? <Navigate to="/" /> : <Login />}
+            element={  <Login user = {user} />}
           />
           
           <Route path="*" element ={<NotFoundPage/>}/>

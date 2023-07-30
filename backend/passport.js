@@ -22,12 +22,27 @@ passport.use(
       clientSecret: GOOGLE_CLIENT_SECRET,
       callbackURL: "/auth/google/callback",
     },
-    function (accessToken, refreshToken, profile, done) {
+    async function (accessToken, refreshToken, profile, cb) {
+      const user = await User.findOne({ 
+          accountId : profile.id,
+          provider : profile.provider
+      })
+      if(!user){
+        console.log("Adding new fb user to Db...");
+        const user = new User({
+          accountId : profile.id,
+          userName : profile.displayName,
+          provider : profile.provider,
+        });
+        await user.save();
+        return cb(null, profile);
+      }
       // User.findOrCreate({googleId:profile.id} , function(err,user){
       //   return cb(err,user);
       // })
-      done(null, profile);
-    }
+      console.log("Facebook user already exists in Db...");
+      cb(null, profile);
+    } 
   )
 );
 
@@ -38,9 +53,27 @@ passport.use(
       clientSecret: GITHUB_CLIENT_SECRET,
       callbackURL: "/auth/github/callback",
     },
-    function (accessToken, refreshToken, profile, done) {
-      done(null, profile);
-    }
+    async function (accessToken, refreshToken, profile, cb) {
+      const user = await User.findOne({ 
+          accountId : profile.id,
+          provider : profile.provider
+      })
+      if(!user){
+        console.log("Adding new fb user to Db...");
+        const user = new User({
+          accountId : profile.id,
+          userName : profile.displayName,
+          provider : profile.provider,
+        });
+        await user.save();
+        return cb(null, profile);
+      }
+      // User.findOrCreate({googleId:profile.id} , function(err,user){
+      //   return cb(err,user);
+      // })
+      console.log("Facebook user already exists in Db...");
+      cb(null, profile);
+    } 
   )
 );
 
@@ -51,11 +84,30 @@ passport.use(
       clientSecret: FACEBOOK_APP_SECRET,
       callbackURL: "/auth/facebook/callback",
     },
-    function (accessToken, refreshToken, profile, done) {
-      done(null, profile);
-    }
+    async function (accessToken, refreshToken, profile, cb) {
+      const user = await User.findOne({ 
+          accountId : profile.id,
+          provider : profile.provider
+      })
+      if(!user){
+        console.log("Adding new fb user to Db...");
+        const user = new User({
+          accountId : profile.id,
+          userName : profile.displayName,
+          provider : profile.provider,
+        });
+        await user.save();
+        return cb(null, profile);
+      }
+      // User.findOrCreate({googleId:profile.id} , function(err,user){
+      //   return cb(err,user);
+      // })
+      console.log("Facebook user already exists in Db...");
+      cb(null, profile);
+    } 
   )
 );
+
 
 
 passport.use(new TwitterStrategy({

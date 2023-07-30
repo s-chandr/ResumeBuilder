@@ -1,11 +1,31 @@
 const mongoose = require('mongoose');
 
 const UserSchema = new mongoose.Schema({
-    
+    userName:{
+        type: String,
+        trim: true,
+        // required: [true, "Please enter your userName"]  
+    },
     email: {
         type: String,
         trim: true,
-        required: [true, "Please enter your email address"]
+        // required: [true, "Please enter your email address"]
+    },
+    password: {
+        type: String,
+        trim: true,
+        // required: [true, "Please enter your password"]
+    },
+    
+    firstName: {
+        type: String,
+        trim: true,
+        // required: [true, "Please enter your firstName"]
+    },
+    lastName: {
+        type: String,
+        trim: true,
+        // required: [true, "Please enter your lastName"]
     },
     photoURL: {
         type: String,
@@ -14,22 +34,12 @@ const UserSchema = new mongoose.Schema({
     accountId: {
         type: String,
         trim: true,
-        required: [true , "Please Enter your accountId"]
+        
     },
     provider :{
         type: String,
     },
-    password: {
-        type: String,
-        trim: true,
-        
-    },
     
-    name: {
-        type: String,
-        trim: true,
-        required: [true, "Please enter your name"]
-    },
     dob:{
         type : Date,
         trim: true,

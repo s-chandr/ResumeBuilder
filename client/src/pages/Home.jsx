@@ -8,10 +8,9 @@ toast.configure();
 
 const Home = ({ user }) => {
   const [formData, setFormData] = useState({
-    email: '',
+    userName : user ? user.displayName : '',
     accountId:  user ? user.id : '',
     provider:  user ? user.provider : '',
-    password: '',
     name:  user ? user.displayName : '',
     DOB: '',
     age: '',
@@ -43,6 +42,7 @@ const Home = ({ user }) => {
     // Handle form submission here, e.g., send data to the server
     // You can access form data using formData.email, formData.accountId, etc.
     console.log(formData);
+    console.log(user);
     try {
         const headers = user ? {accountId : user.accountId , name : user.displayName } : {};
         const response = await axios.post(`/api/user/save` , formData,  {headers,});
@@ -62,18 +62,14 @@ const Home = ({ user }) => {
     <div className="home">
       <h1>Resume Form</h1>
       <form onSubmit={handleSubmit}>
-        <label htmlFor="email">Email:</label>
-        <input type="email" id="email" name="email" value={formData.email} onChange={handleChange} required />
-
+        
         <label htmlFor="accountId">Account ID:</label>
         <input type="text" id="accountId" name="accountId" value={user.id}  readOnly  />
 
         <label htmlFor="provider">Provider:</label>
         <input type="text" id="provider" name="provider" value={user.provider} readOnly  />
 
-        <label htmlFor="password">Password:</label>
-        <input type="password" id="password" name="password" value={formData.password} onChange={handleChange} required />
-
+        
         <label htmlFor="name">name:</label>
         <input type="text" id="name" name="name" value={user.displayName} readOnly  />
 
