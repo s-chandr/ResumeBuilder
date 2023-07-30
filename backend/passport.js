@@ -2,6 +2,7 @@ const GoogleStrategy = require("passport-google-oauth20").Strategy;
 const GithubStrategy = require("passport-github2").Strategy;
 const FacebookStrategy = require("passport-facebook").Strategy;
 const TwitterStrategy = require("passport-twitter").Strategy;
+const LocalStrategy = require("passport-local").Strategy;
 const passport = require("passport");
 const User = require('./models/User');
 
@@ -123,7 +124,18 @@ function(accessToken, refreshToken, profile,  done) {
 }
 ));
 
+passport.use(new LocalStrategy (async(username,password ,done) =>{
+    const user = await User.findOne({userName : username})
+    if(user) return done(null , false);
 
+    if(user.password === password) return done(null , false); 
+    const new_user = new User({
+      userName : username,
+      password : password,
+    });
+    await new_user.save();
+    return done(null , new_user );
+}));
 //needed if you want to use sessions
 passport.serializeUser((user, done) => {
   done(null, user);

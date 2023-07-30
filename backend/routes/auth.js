@@ -14,22 +14,29 @@ router.get("/login/success", (req, res) => {
   }
 });
 
-router.get("/register/success", (req, res) => {
-  if (req.user) {
-    const existingUser = User.findOne({
-        accountId:req.user.accountId,
-    });
-    if(existingUser.password){
-      res.status(200).json({
-        success: true,
-        message: "successfull",
-        flag: true,
-        //   cookies: req.cookies
-      });
-    }
-    
-  }
+// router.post("/register", async (req, res) => {
+//   const user = await User.findOne({userName : req.body.userName})
+//   if (user) {
+//       return res.status(400).send("User already exists")
+//     }
+//   const newUser = await User.create(req.body);
+//   res.status(201).send(newUser)
+//   }
+// )
+
+
+
+router.get("/login", (req, res) => {
+  res.render("login")
 });
+router.post("/register", passport.authenticate("local"))
+router.get(
+  "/register/callback",
+  passport.authenticate("local", {
+    successRedirect: CLIENT_URL,
+    failureRedirect: "/login/failed",
+  })
+);
 
 router.get("/login/failed", (req, res) => {
   res.status(401).json({
@@ -44,6 +51,7 @@ router.get("/logout", (req, res) => {
 });
 
 router.get("/google", passport.authenticate("google", { scope: ["profile"] }));
+
 
 router.get(
   "/google/callback",

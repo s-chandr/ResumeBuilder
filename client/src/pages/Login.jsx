@@ -64,8 +64,16 @@ const emailPattern =  /^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/;
     console.log(user);
     try {
         const headers = user ? {accountId : user.accountId , userName : user.displayName } : {};
-        const response = await axios.post(`/api/user/save` , formData,  {headers,});
-        console.log(response.data);
+        if(user){
+          const response = await axios.post(`/api/user/save` , formData,  {headers,});
+          console.log(response.data);
+        }
+        else
+        {
+          const response = await axios.post(`/auth/register` , formData,  {headers,});
+          console.log(response.data);
+        }
+        
         navigate('/');
     }
     catch (error) {
