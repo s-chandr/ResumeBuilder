@@ -2,6 +2,7 @@ const GoogleStrategy = require("passport-google-oauth20").Strategy;
 const GithubStrategy = require("passport-github2").Strategy;
 const FacebookStrategy = require("passport-facebook").Strategy;
 const TwitterStrategy = require("passport-twitter").Strategy;
+const LocalStrategy = require("passport-local").Strategy;
 const passport = require("passport");
 const User = require('./models/User');
 
@@ -15,6 +16,38 @@ FACEBOOK_APP_ID = process.env.FACEBOOK_APP_ID
 FACEBOOK_APP_SECRET = process.env.FACEBOOK_APP_SECRET
 TWITTER_CONSUMER_KEY = process.env.TWITTER_CONSUMER_KEY
 TWITTER_CONSUMER_SECRET = process.env.TWITTER_CONSUMER_SECRET
+
+passport.use('local-signup', new LocalStrategy({
+  // by default, local strategy uses username and password, we will override with email
+  usernameField : 'email',
+  passwordField : 'password',
+  passReqToCallback : true // allows us to pass back the entire request to the callback
+},
+async function(req, email, password, done) {
+  try {
+    // find a user whose email is the same as the forms email
+    const existingUser = await User.findOne({ 'email' :  email });
+    
+    // if there are any errors, return the error
+    if (existingUser) {
+      return done(null, false, req.flash('signupMessage', 'That email is already taken.'));
+    }
+
+    // if there is no user with that email, create the user
+    const newUser = new User();
+
+    // set the user's local credentials
+    newUser.email = email;
+    newUser.password = password;
+
+    // save the user
+    await newUser.save();
+    return done(null, newUser);
+  } catch (err) {
+    return done(err);
+  }
+}));
+
 passport.use(
   new GoogleStrategy(
     {

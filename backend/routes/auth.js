@@ -13,23 +13,16 @@ router.get("/login/success", (req, res) => {
     });
   }
 });
+// router.post('/login', passport.authenticate('local', { failureRedirect: '/login/failed' }),
+//   function(req, res) {
+//     res.redirect('/');
+//   });
 
-router.get("/register/success", (req, res) => {
-  if (req.user) {
-    const existingUser = User.findOne({
-        accountId:req.user.accountId,
-    });
-    if(existingUser.password){
-      res.status(200).json({
-        success: true,
-        message: "successfull",
-        flag: true,
-        //   cookies: req.cookies
-      });
-    }
-    
-  }
-});
+router.post('/signup', passport.authenticate('local.signup' , {
+  successRedirect : '/',
+  failuerRedirect : '/signup',
+  failuerFlash: true
+  }) );
 
 router.get("/login/failed", (req, res) => {
   res.status(401).json({
