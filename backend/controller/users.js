@@ -1,6 +1,6 @@
 const User = require("../models/User");
 //@desc Get one user
-// @route GET  /api/v1/user/:id
+// @route GET  /api/user/:id
 //@access Public
 exports.getUser = async (req, res, next) => {
     try{
@@ -27,7 +27,7 @@ exports.getUser = async (req, res, next) => {
 }
 
 //@desc add a transaction
-// @route POST  /api/v1/user
+// @route POST  /api/user/save
 //@access Public
 exports.addUser = async (req, res, next) => {
     try{
