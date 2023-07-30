@@ -5,9 +5,33 @@ import Github from "../img/github.png";
 import React, { useState ,useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import IconButton from "@material-ui/core/IconButton";
+import InputLabel from "@material-ui/core/InputLabel";
+import Visibility from "@material-ui/icons/Visibility";
+import InputAdornment from "@material-ui/core/InputAdornment";
+import VisibilityOff from "@material-ui/icons/VisibilityOff";
+import Input from "@material-ui/core/Input";
+import { makeStyles } from "@material-ui/core/styles";
 
+const useStyles = makeStyles((theme) => ({
+  input: {
+    width: "200px",
+    padding: "15px 20px",
+    marginBottom: "20px",
+    display:"flex",
+  },
+}));
 const Login = ({ user }) => {
+  const classes = useStyles();
   const navigate = useNavigate();
+  const [showPassword, setShowPassword] = useState(false);
+const handleClickShowPassword = () => {
+  setShowPassword(!showPassword)
+  // setValues({ ...values, showPassword: !values.showPassword });
+};
+const handleMouseDownPassword = (event) => {
+  event.preventDefault();
+};
   const [formData, setFormData] = useState({
     email: '',
     userName:   user ? user.displayName :'',
@@ -88,11 +112,30 @@ const Login = ({ user }) => {
         </div>
         <div className="right">
         <form onSubmit={handleSubmit}>
-          <input type="text" name = "userName" placeholder="Username" value={user?user.displayName:''}readOnly={user ? true : false} onChange={handleChange} />
+          <input type="text" name = "userName" placeholder="Username" value={formData.userName}  onChange={handleChange} readOnly={user ? true : false} required />
           <input type="text" name = "firstName"  placeholder="FirstName" value={formData.firstName} onChange={handleChange} required />
           <input type="text" name = "lastName" placeholder="LastName"  value={formData.lastName}  onChange={handleChange} required />
           <input type="text" name = "email" placeholder="Email" value={formData.email}  onChange={handleChange} required />
-          <input type="text" name = "password" placeholder="Password" value={formData.password}  onChange={handleChange} required />
+         
+          <Input name = "password"
+          placeholder="Password"
+                type={showPassword ? "text" : "password"}
+                onChange={handleChange}
+                value={formData.password}
+                endAdornment={
+                    <InputAdornment position="end">
+                        <IconButton
+                            onClick={handleClickShowPassword}
+                            onMouseDown={handleMouseDownPassword}
+                        >
+                            {showPassword ? <Visibility /> : <VisibilityOff />}
+                        </IconButton>
+                    </InputAdornment>
+                }
+                required
+                className={classes.input} // Apply custom styles here
+                />
+              
           <button className="submit">Get Started</button>
         </form>
         </div>
