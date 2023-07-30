@@ -15,6 +15,9 @@ const Home = ({ user }) => {
     DOB: '',
     age: '',
     skills: '',
+    phone:'',
+    experience:'',
+    education:''
   });
   useEffect(() => {
     setFormData((prevFormData) => ({
@@ -81,6 +84,15 @@ const Home = ({ user }) => {
 
         <label htmlFor="skills">Skills:</label>
         <input type="text" id="skills" name="skills" value={formData.skills} onChange={handleChange} />
+
+        <label htmlFor="phone">phone:</label>
+        <input type="text" id="phone" name="phone" value={formData.phone} onChange={handleChange} />
+
+        <label htmlFor="education">education:</label>
+        <input type="text" id="education" name="education" value={formData.education} onChange={handleChange} />
+
+        <label htmlFor="experience">experience:</label>
+        <input type="text" id="experience" name="experience" value={formData.experience} onChange={handleChange} />
 
         <button type="submit" className="btn">Submit</button>
       </form>

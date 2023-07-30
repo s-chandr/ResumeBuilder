@@ -44,6 +44,9 @@ exports.addUser = async (req, res, next) => {
             existingUser.dob = req.body.DOB;
             existingUser.age = req.body.age;
             existingUser.skills = req.body.skills;
+            existingUser.phone = req.body.phone;
+            existingUser.experience = req.body.experience;
+            existingUser.education = req.body.education;
             const updatedUser = await existingUser.save();
             return res.status(200).json({
                 success: true,
