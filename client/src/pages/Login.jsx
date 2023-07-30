@@ -32,6 +32,7 @@ const handleClickShowPassword = () => {
 const handleMouseDownPassword = (event) => {
   event.preventDefault();
 };
+const emailPattern =  /^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/;
   const [formData, setFormData] = useState({
     email: '',
     userName:   user ? user.displayName :'',
@@ -115,7 +116,7 @@ const handleMouseDownPassword = (event) => {
           <input type="text" name = "userName" placeholder="Username" value={formData.userName}  onChange={handleChange} readOnly={user ? true : false} required />
           <input type="text" name = "firstName"  placeholder="FirstName" value={formData.firstName} onChange={handleChange} required />
           <input type="text" name = "lastName" placeholder="LastName"  value={formData.lastName}  onChange={handleChange} required />
-          <input type="text" name = "email" placeholder="Email" value={formData.email}  onChange={handleChange} required />
+          <input type="text" pattern={emailPattern.source} name = "email" placeholder="Email" value={formData.email}  onChange={handleChange} required />
          
           <Input name = "password"
           placeholder="Password"

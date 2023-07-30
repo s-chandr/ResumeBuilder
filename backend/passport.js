@@ -40,7 +40,7 @@ passport.use(
       // User.findOrCreate({googleId:profile.id} , function(err,user){
       //   return cb(err,user);
       // })
-      console.log("Facebook user already exists in Db...");
+      console.log("Google user already exists in Db...");
       cb(null, profile);
     } 
   )
@@ -71,7 +71,7 @@ passport.use(
       // User.findOrCreate({googleId:profile.id} , function(err,user){
       //   return cb(err,user);
       // })
-      console.log("Facebook user already exists in Db...");
+      console.log("Github user already exists in Db...");
       cb(null, profile);
     } 
   )
