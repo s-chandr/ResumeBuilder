@@ -8,4 +8,4 @@ Install the dependencies for both client and backend.
 `npm i`
 
 Then start both using `npm start` in two seperate terminals.
-The app is working on `hhtp://localhost:3000`
+The app is working on `http://localhost:3000`
