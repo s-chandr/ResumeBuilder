@@ -24,4 +24,4 @@ yarn-error.log*
 
 
 # remove config
-/config/config.env
+# /config/config.env

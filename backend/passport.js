@@ -28,7 +28,7 @@ passport.use(
           provider : profile.provider
       })
       if(!user){
-        console.log("Adding new fb user to Db...");
+        console.log("Adding new google user to Db...");
         const user = new User({
           accountId : profile.id,
           userName : profile.displayName,
@@ -59,7 +59,7 @@ passport.use(
           provider : profile.provider
       })
       if(!user){
-        console.log("Adding new fb user to Db...");
+        console.log("Adding new github user to Db...");
         const user = new User({
           accountId : profile.id,
           userName : profile.displayName,
