@@ -57,6 +57,21 @@ const UserSchema = new mongoose.Schema({
     createdAt:{
         type : Date,
         default: Date.now
+    },
+    experience: {
+        type: String,
+        trim: true,
+        // required: [true, "Please enter your firstName"]
+    },
+    phone: {
+        type: String,
+        trim: true,
+        // required: [true, "Please enter your firstName"]
+    },
+    education: {
+        type: String,
+        trim: true,
+        // required: [true, "Please enter your firstName"]
     }
 })
 
